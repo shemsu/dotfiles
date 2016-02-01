@@ -1,8 +1,7 @@
-# Mathias’s dotfiles
+#Benshu's dotfiles based on Mathias’s dotfiles
 
-![Screenshot of my shell prompt](http://i.imgur.com/EkEtphC.png)
-
-## Installation
+This is a forked repository of Mathias's dotfiles, with personal tweaks.
+# Installation
 
 **Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
 
