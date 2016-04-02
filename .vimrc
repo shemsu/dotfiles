@@ -7,42 +7,35 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Bundle 'ervandew/supertab'
-" YouCompleteMe
-Plugin 'Valloric/YouCompleteMe'
-" Airline
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" Ultisnips
-Bundle 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them:
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-" Ctrl-P
-Plugin 'ctrl-p'
-" vim-multiple-cursors
-"Plugin 'https://github.com/terryma/vim-multiple-cursors'
-" the-NERD-TREE
 Plugin 'https://github.com/scrooloose/nerdtree'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
+"Plugin 'https://github.com/terryma/vim-multiple-cursors'
 call vundle#end()
 filetype plugin indent on
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
 " non-Plugin stuff after this line
+set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip 
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
+
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+"let g:SuperTabDefaultCompletionType = '<C-n>'
 " slow multiple_cursors &amp; YCM
-function! Multiple_cursors_before()
-    let g:ycm_auto_trigger = 0
-endfunction
-function! Multiple_cursors_after()
-    let g:ycm_auto_trigger = 1
-endfunction
+"function! Multiple_cursors_before()
+"    let g:ycm_auto_trigger = 0
+"endfunction
+"function! Multiple_cursors_after()
+"    let g:ycm_auto_trigger = 1
+"endfunction
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 " Use the Solarized Dark theme
 syntax enable
@@ -150,22 +143,10 @@ if has("autocmd")
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
 
-" POwerline status bar install
-"set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-
-"let g:Powerline_symbols = 'fancy'
-"set fillchars+=stl:\ ,stlnc:\
-"set term=xterm-256color
-"set termencoding=utf-8
-
-" GUI compability for powerline
 
 if has("gui_running")
 				set guifont=Inconsolata\ for\ Powerline:h16
-				set linespace=2
+				set linespace=1
 endif
 "Airline config
 let g:airline#extensions#tabline#enabled = 1
