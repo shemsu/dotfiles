@@ -5,45 +5,59 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin '907th/vim-auto-save'
+Plugin 'lervag/vimtex', { 'for': 'tex' }
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'mattn/emmet-vim'
+Plugin 'https://github.com/scrooloose/nerdcommenter'
 Plugin 'https://github.com/scrooloose/nerdtree'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
+Plugin 'https://github.com/neilagabriel/vim-geeknote'
+Plugin 'tomasr/molokai'
+Plugin 'https://github.com/sickill/vim-monokai'
 "Plugin 'https://github.com/terryma/vim-multiple-cursors'
+"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call vundle#end()
 filetype plugin indent on
-" non-Plugin stuff after this line
-set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip 
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 
+set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip
+"
+" Use the Solarized Dark theme
+"syntax enable
+"set background=dark
+"let g:solarized_termtrans=256
+colorscheme molokai
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
+set grepprg=grep\ -nH\ $* " For latex-suite
+let g:tex_flavor='latex'
+"latex-suite-aka-vim-latex
+"let g:Tex_DefaultTargetFormat = 'pdf'
+"let g:Tex_CompileRule_pdf = 'latexmk -pdf -f $*'
+set iskeyword+=:
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 "let g:SuperTabDefaultCompletionType = '<C-n>'
-" slow multiple_cursors &amp; YCM
-"function! Multiple_cursors_before()
-"    let g:ycm_auto_trigger = 0
-"endfunction
-"function! Multiple_cursors_after()
-"    let g:ycm_auto_trigger = 1
-"endfunction
 " better key bindings for UltiSnipsExpandTrigger
-"let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsExpandTrigger = "<tab>"
 "let g:UltiSnipsJumpForwardTrigger = "<tab>"
 "let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 "let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-" Use the Solarized Dark theme
-syntax enable
-set background=dark
-let g:solarized_termtrans=256
-colorscheme solarized
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" Setup autosave plugin, off by default, enable with :AutoSaveToggle
+let g:auto_save = 0
+let g:auto_save_in_insert_mode = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
@@ -70,10 +84,8 @@ set directory=~/.vim/swaps
 if exists("&undodir")
 	set undodir=~/.vim/undo
 endif
-
 " Don’t create backups when editing files in certain directories
 set backupskip=/tmp/*,/private/tmp/*
-
 " Respect modeline in files
 set modeline
 set modelines=4
@@ -133,6 +145,14 @@ noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
+" Tab navigation like Firefox.
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
+
 " Automatic commands
 if has("autocmd")
 	" Enable file type detection
@@ -142,7 +162,10 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
-
+"Forward search with skim
+map ,r :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> diff.pdf<CR>
+" execute the current line of text as a shell command
+noremap      Q !!$SHELL<CR>
 
 if has("gui_running")
 				set guifont=Inconsolata\ for\ Powerline:h16
