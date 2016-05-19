@@ -29,6 +29,9 @@ Plugin 'https://github.com/digitaltoad/vim-pug'
 call vundle#end()
 filetype plugin indent on
 
+" Prevent delay when escaping from insert mode
+set timeoutlen=1000 ttimeoutlen=0
+
 set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip
 "
 " Use the Solarized Dark theme
