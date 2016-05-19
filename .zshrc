@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 export DEFAULT_USER="Benshu"
 
 export CLICOLOR=1
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -86,6 +86,6 @@ fi
 # change gd alias from git plugin to gdiff, gd is used for Google Drive
 alias gdp='cd ~/Google\ Drive/Projects'
 alias gdiff='git diff'
-source .aliases
-source .exports
-source .functions
+source ~/.aliases
+source ~/.exports
+source ~/.functions

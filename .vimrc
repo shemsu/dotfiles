@@ -22,6 +22,8 @@ Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
 Plugin 'https://github.com/neilagabriel/vim-geeknote'
 Plugin 'tomasr/molokai'
 Plugin 'https://github.com/sickill/vim-monokai'
+Plugin 'jellybeans.vim'
+Plugin 'https://github.com/digitaltoad/vim-pug'
 "Plugin 'https://github.com/terryma/vim-multiple-cursors'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call vundle#end()
@@ -99,7 +101,12 @@ syntax on
 " Highlight current line
 set cursorline
 " Make tabs as wide as two spaces
-set tabstop=2
+set tabstop=4
+" Set indentation to expand to 4 spaces
+set shiftwidth=4
+" Expand tabs to spaces
+set expandtab
+
 " Show “invisible” characters
 "set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 "set list
@@ -171,6 +178,9 @@ if has("gui_running")
 				set guifont=Inconsolata\ for\ Powerline:h16
 				set linespace=1
 endif
+
 "Airline config
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+"Emmet settings
+let g:user_emmet_settings = {'jade' : { 'extends' : 'html',},}

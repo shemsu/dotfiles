@@ -16,6 +16,7 @@ alias h="history"
 alias j="jobs"
 alias gd="cd ~/Google\ Drive/"
 
+alias sexify="python -m autopep8 --in-place --aggressive --aggressive"
 #MySQL start shortcut
 alias mysqlStart="launchctl load /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
 alias mysqlStop="launchctl unload /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
