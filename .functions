@@ -1,3 +1,15 @@
+# Copy last command to clipboard
+function cl() { 
+    history -p '!!'|tr -d \\n|pbcopy; 
+}
+#LaTeX file compile with simple settings
+function mklatex() {
+	if [ $# -eq 0 ]; then
+		printf ".tex filename required";
+	else
+        xelatex -synctex=on -interaction=nonstopmode "$@";
+	fi;
+}
 # Simple calculator
 function calc() {
 	local result="";
@@ -244,3 +256,4 @@ function o() {
 function tre() {
 	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
 }
+cl() { history -p 'cat ~/.bash_profile '|tr -d \n|pbcopy; }
