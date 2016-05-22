@@ -184,6 +184,6 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
-[user]
-	name = Hagay Ben-Shushan
-	email = hagaybens@gmail.com
+
+[include]
+    path = ~/.gituser
