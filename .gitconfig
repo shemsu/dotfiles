@@ -184,6 +184,6 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
-[user]
-	name = ***REMOVED***
-	email = ***REMOVED***
+
+[include]
+    path = ~/.gituser
