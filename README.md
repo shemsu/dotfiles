@@ -6,15 +6,22 @@ This is a forked repository of Mathias's dotfiles, with personal tweaks.
 
 **Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
 
-### Using Git and the bootstrap script
+### Using Git and the bootstrap python script
 
 You can clone the repository wherever you want. (I like to keep it in `~/Projects/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script will pull in the latest version and copy the files to your home folder.
 
 ```bash
-git clone https://github.com/mathiasbynens/dotfiles.git && cd dotfiles && source bootstrap.sh
+git clone https://github.com/benshu/dotfiles.git && cd dotfiles 
 ```
 
-To update, `cd` into your local `dotfiles` repository and then:
+To update using sym links from the home folder to the dotfiles folder, first edit bootsrap.py list of files to sync and then use:
+
+```bash
+python bootstrap.py
+```
+You'll be prompted if you'd like to continue, then any existing files will be renamed to <filename>.backup and then a new sym link will be creeated.
+
+To update overwriting existing files, `cd` into your local `dotfiles` repository and then:
 
 ```bash
 source bootstrap.sh

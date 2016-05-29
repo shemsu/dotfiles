@@ -12,7 +12,7 @@ files_to_bootstrap = [
     '.functions',
     '.gdbinit',
     '.gitattributes',
-    '.gitconfig',
+#    '.gitconfig',
     '.gitignore',
     '.gvimrc',
     '.hgignore',
