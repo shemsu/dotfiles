@@ -41,6 +41,10 @@ set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip
 colorscheme molokai
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
+
+"clang formatter
+map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 set grepprg=grep\ -nH\ $* " For latex-suite
 let g:tex_flavor='latex'
 "latex-suite-aka-vim-latex
