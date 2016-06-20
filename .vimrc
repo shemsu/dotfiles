@@ -32,9 +32,8 @@ filetype plugin indent on
 " Prevent delay when esc. from insert mode
 set timeoutlen=1000 ttimeoutlen=0
 
-set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip
-"
-" Use the Solarized Dark theme
+set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
+
 "syntax enable
 "set background=dark
 "let g:solarized_termtrans=256
