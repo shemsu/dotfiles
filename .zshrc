@@ -84,8 +84,6 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # change gd alias from git plugin to gdiff, gd is used for Google Drive
-alias gdp='cd ~/Google\ Drive/Projects'
-alias gdiff='git diff'
 source ~/.aliases
 source ~/.exports
 source ~/.functions

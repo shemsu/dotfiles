@@ -7,6 +7,8 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
+alias gdp='cd ~/Google\ Drive/Projects'
+alias gdiff='git diff' # Since I override oh-my-zsh's gd For google drive
 alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
@@ -31,6 +33,7 @@ alias la="ls -laF ${colorflag}"
 
 # List only directories
 alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+
 # List only hidden files
 alias lh="ls -ld .?* ${colorflag}"
 # Always use color output for `ls`
