@@ -83,7 +83,7 @@ def link_files():
 
 
 def main():
-    print "This will link the dotfiles from the current directory to your home folder"
+    print "This will link the dotfiles from the current directory to your home folder\n If a file exists it will be renamed to <filename>.backup"
     if query_yes_no("Are you sure ?"):
         link_files()
     pass
