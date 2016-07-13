@@ -19,7 +19,6 @@ Plugin 'https://github.com/scrooloose/nerdcommenter'
 Plugin 'https://github.com/scrooloose/nerdtree'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
-Plugin 'https://github.com/neilagabriel/vim-geeknote'
 Plugin 'tomasr/molokai'
 Plugin 'https://github.com/sickill/vim-monokai'
 Plugin 'jellybeans.vim'
@@ -46,9 +45,9 @@ map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-forma
 imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 set grepprg=grep\ -nH\ $* " For latex-suite
 let g:tex_flavor='latex'
-"latex-suite-aka-vim-latex
-"let g:Tex_DefaultTargetFormat = 'pdf'
-"let g:Tex_CompileRule_pdf = 'latexmk -pdf -f $*'
+" Python breakpoints shortcuts
+au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 set iskeyword+=:
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
