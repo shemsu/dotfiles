@@ -1,6 +1,7 @@
 " Make Vim more useful
 set nocompatible              " be iMproved, required
-filetype off                  " required
+"filetype off                  " Testing - to see if it's redundant (Should
+"go down on next commit)
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -17,8 +18,10 @@ Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
 Plugin 'https://github.com/scrooloose/nerdcommenter'
 Plugin 'https://github.com/scrooloose/nerdtree'
+Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
+"Themes
 Plugin 'tomasr/molokai'
 Plugin 'https://github.com/sickill/vim-monokai'
 Plugin 'jellybeans.vim'
@@ -67,16 +70,23 @@ let g:Show_diagnostics_ui = 1 "default 1
 "Turning this off will also turn off the YcmErrorLine and YcmWarningLine
 "highlighting
 let g:ycm_enable_diagnostic_signs = 1
-let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_always_populate_location_list = 1 "default 0
 let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
 let g:ycm_complete_in_strings = 1 "default 1
 let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
-let g:ycm_path_to_python_interpreter = '' "default ''
+let g:ycm_path_to_python_interpreter = 'python' "default ''
 
 let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
 let g:ycm_server_log_level = 'info' "default info
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
+"
+" Synatstic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
