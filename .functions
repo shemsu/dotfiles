@@ -16,6 +16,10 @@ function md_please() {
     curl http://markdownplease.com/\?url\=$@
 }
 
+# Clean exited docker containers
+function docker_clean() {
+    docker rm -v $(docker ps -a -q -f status=exited)
+}
 # Simple calculator
 function calc() {
 	local result="";
