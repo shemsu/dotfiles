@@ -22,6 +22,7 @@ Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
 "Themes
+Plugin 'git://github.com/altercation/vim-colors-solarized.git'
 Plugin 'tomasr/molokai'
 Plugin 'https://github.com/sickill/vim-monokai'
 Plugin 'jellybeans.vim'
@@ -87,7 +88,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_python_python_exec='python3'
+let g:syntastic_python_python_exec='python'
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
