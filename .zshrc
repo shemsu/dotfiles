@@ -88,3 +88,8 @@ source ~/.aliases
 source ~/.exports
 source ~/.functions
 source ~/.extra
+source ~/.cudarc
+
+# Python virtualenv wrapper
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
