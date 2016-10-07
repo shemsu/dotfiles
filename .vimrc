@@ -1,8 +1,20 @@
+" ____                 _           _               _                    
+"| __ )  ___ _ __  ___| |__  _   _( )___    __   _(_)_ __ ___  _ __ ___ 
+"|  _ \ / _ \ '_ \/ __| '_ \| | | |// __|   \ \ / / | '_ ` _ \| '__/ __|
+"| |_) |  __/ | | \__ \ | | | |_| | \__ \    \ V /| | | | | | | | | (__ 
+"|____/ \___|_| |_|___/_| |_|\__,_| |___/   (_)_/ |_|_| |_| |_|_|  \___|
+"                                                                       
 " Make Vim more useful
-set nocompatible              " be iMproved, required
-"filetype off                  " Testing - to see if it's redundant (Should
-"go down on next commit)
-
+set nocompatible              " be iMproved
+"filetype off                  " Testing - to see if it's redundant (Should go down on next commit)
+"
+"                       _ _              _             _       
+"__   ___   _ _ __   __| | | ___   _ __ | |_   _  __ _(_)_ __  
+"\ \ / / | | | '_ \ / _` | |/ _ \ | '_ \| | | | |/ _` | | '_ \ 
+" \ V /| |_| | | | | (_| | |  __/ | |_) | | |_| | (_| | | | | |
+"  \_/  \__,_|_| |_|\__,_|_|\___| | .__/|_|\__,_|\__, |_|_| |_|
+"                                 |_|            |___/         
+"
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -12,7 +24,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin '907th/vim-auto-save'
-Plugin 'lervag/vimtex', { 'for': 'tex' }
+"Plugin 'lervag/vimtex', { 'for': 'tex' }
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
@@ -26,43 +38,44 @@ Plugin 'tomasr/molokai'
 Plugin 'https://github.com/sickill/vim-monokai'
 Plugin 'jellybeans.vim'
 Plugin 'https://github.com/digitaltoad/vim-pug'
-"Plugin 'https://github.com/terryma/vim-multiple-cursors'
-"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call vundle#end()
 filetype plugin indent on
 
-" Prevent delay when esc. from insert mode
-set timeoutlen=1000 ttimeoutlen=0
+" ____  _             _         ____       _   _   _                 
+"|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___ 
+"| |_) | | | | |/ _` | | '_ \  \___ \ / _ \ __| __| | '_ \ / _` / __|
+"|  __/| | |_| | (_| | | | | |  ___) |  __/ |_| |_| | | | | (_| \__ \
+"|_|   |_|\__,_|\__, |_|_| |_| |____/ \___|\__|\__|_|_| |_|\__, |___/
+"               |___/                                      |___/     
 
-set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
 
-"syntax enable
-"set background=dark
-"let g:solarized_termtrans=256
-colorscheme molokai
+"Airline config
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
+"Emmet settings
+let g:user_emmet_settings = {'jade' : { 'extends' : 'html',},}
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 
-"clang formatter
+"clang formatter for c files
 map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 
-set grepprg=grep\ -nH\ $* " For latex-suite
-let g:tex_flavor='latex'
-"
 " Python breakpoints shortcuts
 au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 set iskeyword+=:
+
+" YCM settings
 "
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 "let g:SuperTabDefaultCompletionType = '<C-n>'
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
-"let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_register_as_syntastic_checker = 1 "default 1
 let g:Show_diagnostics_ui = 1 "default 1
@@ -76,26 +89,44 @@ let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
 let g:ycm_complete_in_strings = 1 "default 1
 let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
 let g:ycm_path_to_python_interpreter = 'python' "default ''
-
 let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
 let g:ycm_server_log_level = 'info' "default info
-nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
-nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
-"
+
 " Synatstic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_python_python_exec='python3'
+let g:syntastic_python_python_exec='python'
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-" Setup autosave plugin, off by default, enable with :AutoSaveToggle
+" Latex plugins settings
+set grepprg=grep\ -nH\ $* " For latex-suite
+let g:tex_flavor='latex'
+
+"Forward search with skim
+map ,r :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> diff.pdf<CR>
+
+" Setup autosave plugin, off by default, enable with :AutoSaveToggle 
 let g:auto_save = 0
 let g:auto_save_in_insert_mode = 1
 let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
+"__     _____ __  __            _   _   _                 
+"\ \   / /_ _|  \/  |  ___  ___| |_| |_(_)_ __   __ _ ___ 
+" \ \ / / | || |\/| | / __|/ _ \ __| __| | '_ \ / _` / __|
+"  \ V /  | || |  | | \__ \  __/ |_| |_| | | | | (_| \__ \
+"   \_/  |___|_|  |_| |___/\___|\__|\__|_|_| |_|\__, |___/
+"                                               |___/     
+" Prevent delay when esc. from insert mode (Should be os x only)
+set timeoutlen=1000 ttimeoutlen=0
+
+set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
+syntax enable
+"set background=dark
+"let g:solarized_termtrans=256
+colorscheme molokai
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
@@ -183,7 +214,9 @@ function! StripWhitespace()
 	call setpos('.', save_cursor)
 	call setreg('/', old_query)
 endfunction
+
 noremap <leader>ss :call StripWhitespace()<CR>
+
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 
@@ -195,6 +228,9 @@ inoremap <C-S-tab> <Esc>:tabprevious<CR>i
 inoremap <C-tab>   <Esc>:tabnext<CR>i
 inoremap <C-t>     <Esc>:tabnew<CR>
 
+" Run line under cursor as shell command and paste output to buffer
+noremap      Q !!$SHELL<CR>
+
 " Automatic commands
 if has("autocmd")
 	" Enable file type detection
@@ -204,18 +240,10 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
-"Forward search with skim
-map ,r :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> diff.pdf<CR>
+
 " execute the current line of text as a shell command
-noremap      Q !!$SHELL<CR>
 
 if has("gui_running")
 				set guifont=Inconsolata\ for\ Powerline:h16
 				set linespace=1
 endif
-
-"Airline config
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-"Emmet settings
-let g:user_emmet_settings = {'jade' : { 'extends' : 'html',},}
