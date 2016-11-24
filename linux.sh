@@ -31,6 +31,8 @@ sudo apt-get install python-dev python3-dev
 sudo apt-get install htop
 sudo apt-get install cmake
 sudo apt-get install figlet
+sudo apt-get install zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 #        _                      _   _   _                 
 # __   _(_)_ __ ___    ___  ___| |_| |_(_)_ __   __ _ ___ 

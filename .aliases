@@ -12,13 +12,15 @@ alias gdiff='git diff' # Since I override oh-my-zsh's gd For google drive
 alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias p="cd ~/Projects"
+alias p="cd ~/projects"
 alias g="git"
 alias h="history"
 alias j="jobs"
 alias gd="cd ~/Google\ Drive/"
 
 alias sexify="python -m autopep8 --in-place --aggressive --aggressive"
+alias retag="ctags -R --fields=+l ."
+
 #MySQL start shortcut
 alias mysqlStart="launchctl load /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
 alias mysqlStop="launchctl unload /usr/local/opt/mysql/homebrew.mxcl.mysql.plist"
@@ -65,7 +67,7 @@ alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew c
 #Rest of updates i don't use for now ' npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias my_ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
