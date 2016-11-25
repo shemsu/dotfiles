@@ -6,7 +6,6 @@
 "                                                                       
 " Make Vim more useful
 set nocompatible              " be iMproved
-"filetype off                  " Testing - to see if it's redundant (Should go down on next commit)
 "
 "                       _ _              _             _       
 "__   ___   _ _ __   __| | | ___   _ __ | |_   _  __ _(_)_ __  
@@ -22,6 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-fugitive'
 Plugin '907th/vim-auto-save'
 "Plugin 'lervag/vimtex', { 'for': 'tex' }
@@ -62,8 +62,8 @@ map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-forma
 imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 
 " Python breakpoints shortcuts
-au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
-au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
+au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
 set iskeyword+=:
 
 " YCM settings
@@ -87,7 +87,7 @@ let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_always_populate_location_list = 1 "default 0
 let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
 let g:ycm_complete_in_strings = 1 "default 1
-let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+let g:ycm_collect_identifiers_from_tags_files = 1 "default 0
 let g:ycm_path_to_python_interpreter = 'python' "default ''
 let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
 let g:ycm_server_log_level = 'info' "default info
@@ -102,11 +102,11 @@ let g:syntastic_python_python_exec='python'
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Latex plugins settings
-set grepprg=grep\ -nH\ $* " For latex-suite
-let g:tex_flavor='latex'
+"set grepprg=grep\ -nH\ $* " For latex-suite
+"let g:tex_flavor='latex'
 
 "Forward search with skim
-map ,r :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> diff.pdf<CR>
+"map ,r :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> diff.pdf<CR>
 
 " Setup autosave plugin, off by default, enable with :AutoSaveToggle 
 let g:auto_save = 0
