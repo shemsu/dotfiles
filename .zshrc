@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export DEFAULT_USER="Benshu"
+export LANG=en_US.UTF-8
 
 export CLICOLOR=1
 # export TERM=xterm-256color
