@@ -21,25 +21,40 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
 Plugin '907th/vim-auto-save'
-"Plugin 'lervag/vimtex', { 'for': 'tex' }
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'majutsushi/tagbar'
+Plugin 'lervag/vimtex', { 'for': 'tex' }
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
 Plugin 'https://github.com/scrooloose/nerdcommenter'
 Plugin 'https://github.com/scrooloose/nerdtree'
 Plugin 'https://github.com/scrooloose/syntastic'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
+Plugin 'severin-lemaignan/vim-minimap'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'christoomey/vim-tmux-navigator'
 "Themes
+Plugin 'mhartington/oceanic-next'
+Plugin 'git://github.com/altercation/vim-colors-solarized.git'
 Plugin 'tomasr/molokai'
 Plugin 'https://github.com/sickill/vim-monokai'
 Plugin 'jellybeans.vim'
 Plugin 'https://github.com/digitaltoad/vim-pug'
+"Plugin 'https://github.com/terryma/vim-multiple-cursors'
+"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call vundle#end()
 filetype plugin indent on
+" if (has("termguicolors"))
+    " set termguicolors
+" endif
 
 " ____  _             _         ____       _   _   _                 
 "|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___ 
@@ -49,17 +64,30 @@ filetype plugin indent on
 "               |___/                                      |___/     
 
 
-"Airline config
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+" Copy to ubuntu clipboard
+vnoremap <C-c> "+y<CR>
 
-"Emmet settings
-let g:user_emmet_settings = {'jade' : { 'extends' : 'html',},}
+" Align blocks of text and keep them selected
+vmap < <gv
+vmap > >gv
+
+"syntax enable
+"set background=dark
+"let g:solarized_termtrans=256
+colorscheme OceanicNext
+
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
+let g:ctrlp_working_path_mode= 'ra'
 
 "clang formatter for c files
 map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
+map <silent> - :NERDTreeToggle<CR>
+" Nerd commenter
+"
+let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1
 
 " Python breakpoints shortcuts
 au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
@@ -68,14 +96,14 @@ set iskeyword+=:
 
 " YCM settings
 "
-nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
-nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 "let g:SuperTabDefaultCompletionType = '<C-n>'
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_register_as_syntastic_checker = 1 "default 1
 let g:Show_diagnostics_ui = 1 "default 1
@@ -88,30 +116,38 @@ let g:ycm_always_populate_location_list = 1 "default 0
 let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
 let g:ycm_complete_in_strings = 1 "default 1
 let g:ycm_collect_identifiers_from_tags_files = 1 "default 0
-let g:ycm_path_to_python_interpreter = 'python' "default ''
+let g:ycm_path_to_python_interpreter = '' "default ''
+
 let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
 let g:ycm_server_log_level = 'info' "default info
-
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
+"
 " Synatstic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 3
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_python_exec='python'
+" Disable line too long errors in syntastic
+let g:syntastic_python_flake8_args='--ignore=E501'
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-" Latex plugins settings
-"set grepprg=grep\ -nH\ $* " For latex-suite
-"let g:tex_flavor='latex'
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-"Forward search with skim
-"map ,r :w<CR>:silent !/Applications/Skim.app/Contents/SharedSupport/displayline <C-r>=line('.')<CR> diff.pdf<CR>
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
 
-" Setup autosave plugin, off by default, enable with :AutoSaveToggle 
-let g:auto_save = 0
-let g:auto_save_in_insert_mode = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged"]
+" Simply fold settings
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 "__     _____ __  __            _   _   _                 
 "\ \   / /_ _|  \/  |  ___  ___| |_| |_(_)_ __   __ _ ___ 
@@ -121,6 +157,8 @@ let g:auto_save_events = ["InsertLeave", "TextChanged"]
 "                                               |___/     
 " Prevent delay when esc. from insert mode (Should be os x only)
 set timeoutlen=1000 ttimeoutlen=0
+" Enable folding with the spacebar
+nnoremap <space> za
 
 set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
 syntax enable
@@ -186,6 +224,7 @@ set incsearch
 set laststatus=2
 " Enable mouse in all modes
 set mouse=a
+set ttymouse=xterm2
 " Disable error bells
 set noerrorbells
 " Don’t reset cursor to start of line when moving around.
@@ -206,6 +245,10 @@ endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+nnoremap <leader>t :CtrlPTag<CR>
+vnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gb :Gblame<CR>
+
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
 	let save_cursor = getpos(".")
@@ -214,11 +257,15 @@ function! StripWhitespace()
 	call setpos('.', save_cursor)
 	call setreg('/', old_query)
 endfunction
-
 noremap <leader>ss :call StripWhitespace()<CR>
-
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Tab navigation like Firefox.
 nnoremap <C-S-tab> :tabprevious<CR>
@@ -244,6 +291,55 @@ endif
 " execute the current line of text as a shell command
 
 if has("gui_running")
-				set guifont=Inconsolata\ for\ Powerline:h16
+				set guifont="Source\ Code\ Pro\ for\ Powerline\ Medium:h16"
 				set linespace=1
 endif
+
+"Airline config
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme = "oceanicnext"
+
+"Emmet settings
+let g:user_emmet_settings = {'jade' : { 'extends' : 'html',},}
+
+"Multi cursors config
+"
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+" Function to close all buffers but those open in a window
+"
+function! Wipeout()
+  " list of *all* buffer numbers
+  let l:buffers = range(1, bufnr('$'))
+
+  " what tab page are we in?
+  let l:currentTab = tabpagenr()
+  try
+    " go through all tab pages
+    let l:tab = 0
+    while l:tab < tabpagenr('$')
+      let l:tab += 1
+
+      " go through all windows
+      let l:win = 0
+      while l:win < winnr('$')
+        let l:win += 1
+        " whatever buffer is in this window in this tab, remove it from
+        " l:buffers list
+        let l:thisbuf = winbufnr(l:win)
+        call remove(l:buffers, index(l:buffers, l:thisbuf))
+      endwhile
+    endwhile
+
+    " if there are any buffers left, delete them
+    if len(l:buffers)
+      execute 'bwipeout' join(l:buffers)
+    endif
+  finally
+    " go back to our original tab page
+    execute 'tabnext' l:currentTab
+  endtry
+endfunction

@@ -70,7 +70,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
 				export EDITOR='vim'
 else
-				export EDITOR='mvim'
+				export EDITOR='gvim'
 fi
 
 # Compilation flags
@@ -94,3 +94,12 @@ source ~/.cudarc
 # Python virtualenv wrapper
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /home/hagay/google-cloud-sdk/path.zsh.inc ]; then
+  source '/home/hagay/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /home/hagay/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/home/hagay/google-cloud-sdk/completion.zsh.inc'
+fi

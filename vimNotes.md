@@ -1,4 +1,4 @@
-# My VIM Notes
+# my VIM notes
 
 ## Write as root trick
 ```
