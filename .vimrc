@@ -1,18 +1,18 @@
-" ____                 _           _               _                    
-"| __ )  ___ _ __  ___| |__  _   _( )___    __   _(_)_ __ ___  _ __ ___ 
+" ____                 _           _               _
+"| __ )  ___ _ __  ___| |__  _   _( )___    __   _(_)_ __ ___  _ __ ___
 "|  _ \ / _ \ '_ \/ __| '_ \| | | |// __|   \ \ / / | '_ ` _ \| '__/ __|
-"| |_) |  __/ | | \__ \ | | | |_| | \__ \    \ V /| | | | | | | | | (__ 
+"| |_) |  __/ | | \__ \ | | | |_| | \__ \    \ V /| | | | | | | | | (__
 "|____/ \___|_| |_|___/_| |_|\__,_| |___/   (_)_/ |_|_| |_| |_|_|  \___|
-"                                                                       
+"
 " Make Vim more useful
 set nocompatible              " be iMproved
 "
-"                       _ _              _             _       
-"__   ___   _ _ __   __| | | ___   _ __ | |_   _  __ _(_)_ __  
-"\ \ / / | | | '_ \ / _` | |/ _ \ | '_ \| | | | |/ _` | | '_ \ 
+"                       _ _              _             _
+"__   ___   _ _ __   __| | | ___   _ __ | |_   _  __ _(_)_ __
+"\ \ / / | | | '_ \ / _` | |/ _ \ | '_ \| | | | |/ _` | | '_ \
 " \ V /| |_| | | | | (_| | |  __/ | |_) | | |_| | (_| | | | | |
 "  \_/  \__,_|_| |_|\__,_|_|\___| | .__/|_|\__,_|\__, |_|_| |_|
-"                                 |_|            |___/         
+"                                 |_|            |___/
 "
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -26,7 +26,6 @@ Plugin 'tpope/vim-unimpaired'
 Plugin '907th/vim-auto-save'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'majutsushi/tagbar'
-Plugin 'lervag/vimtex', { 'for': 'tex' }
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
@@ -48,33 +47,128 @@ Plugin 'tomasr/molokai'
 Plugin 'https://github.com/sickill/vim-monokai'
 Plugin 'jellybeans.vim'
 Plugin 'https://github.com/digitaltoad/vim-pug'
-"Plugin 'https://github.com/terryma/vim-multiple-cursors'
-"Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call vundle#end()
-filetype plugin indent on
-" if (has("termguicolors"))
-    " set termguicolors
-" endif
 
-" ____  _             _         ____       _   _   _                 
-"|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___ 
+"__     _____ __  __            _   _   _
+"\ \   / /_ _|  \/  |  ___  ___| |_| |_(_)_ __   __ _ ___
+" \ \ / / | || |\/| | / __|/ _ \ __| __| | '_ \ / _` / __|
+"  \ V /  | || |  | | \__ \  __/ |_| |_| | | | | (_| \__ \
+"   \_/  |___|_|  |_| |___/\___|\__|\__|_|_| |_|\__, |___/
+"                                               |___/
+
+filetype plugin indent on
+
+colorscheme OceanicNext
+
+" Prevent delay when esc. from insert mode (Should be os x only)
+set timeoutlen=1000 ttimeoutlen=0
+
+set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
+syntax enable
+
+" Use the OS clipboard by default (on versions compiled with `+clipboard`)
+set clipboard=unnamed
+" Enhance command-line completion
+set wildmenu
+" Allow cursor keys in insert mode
+set esckeys
+" Allow backspace in insert mode
+set backspace=indent,eol,start
+" Optimize for fast terminal connections
+set ttyfast
+" Add the g flag to search/replace by default
+set gdefault
+" Use UTF-8 without BOM
+set encoding=utf-8 nobomb
+" Change mapleader
+let mapleader=","
+" Don’t add empty newlines at the end of files
+set binary
+set noeol
+" Centralize backups, swapfiles and undo history
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+if exists("&undodir")
+    set undodir=~/.vim/undo
+endif
+" Don’t create backups when editing files in certain directories
+set backupskip=/tmp/*,/private/tmp/*
+" Respect modeline in files
+set modeline
+set modelines=4
+" Enable per-directory .vimrc files and disable unsafe commands in them
+set exrc
+set secure
+" Enable line numbers
+set number
+" Enable syntax highlighting
+syntax on
+" Highlight current line
+set cursorline
+" Make tabs as wide as two spaces
+set tabstop=4
+" Set indentation to expand to 4 spaces
+set shiftwidth=4
+" Expand tabs to spaces
+set expandtab
+
+" Show “invisible” characters
+"set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+"set list
+" Highlight searches
+set hlsearch
+" Ignore case of searches
+set ignorecase
+" Highlight dynamically as pattern is typed
+set incsearch
+" Always show status line
+set laststatus=2
+" Enable mouse in all modes
+set mouse=a
+set ttymouse=xterm2
+" Disable error bells
+set noerrorbells
+" Don’t reset cursor to start of line when moving around.
+set nostartofline
+" Show the cursor position
+set ruler
+" Show the current mode
+set showmode
+" Show the filename in the window titlebar
+set title
+" Show the (partial) command as it’s being typed
+set showcmd
+" Use relative line numbers
+if exists("&relativenumber")
+    set relativenumber
+    au BufReadPost * set relativenumber
+endif
+" Start scrolling three lines before the horizontal window border
+set scrolloff=3
+
+" Automatic commands
+if has("autocmd")
+    " Enable file type detection
+    filetype on
+    " Treat .json files as .js
+    autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+    " Treat .md files as Markdown
+    autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+endif
+
+" execute the current line of text as a shell command
+
+if has("gui_running")
+    set guifont="Source\ Code\ Pro\ for\ Powerline\ Medium:h16"
+    set linespace=1
+endif
+" ____  _             _         ____       _   _   _
+"|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___
 "| |_) | | | | |/ _` | | '_ \  \___ \ / _ \ __| __| | '_ \ / _` / __|
 "|  __/| | |_| | (_| | | | | |  ___) |  __/ |_| |_| | | | | (_| \__ \
 "|_|   |_|\__,_|\__, |_|_| |_| |____/ \___|\__|\__|_|_| |_|\__, |___/
-"               |___/                                      |___/     
+"               |___/                                      |___/
 
-
-" Copy to ubuntu clipboard
-vnoremap <C-c> "+y<CR>
-
-" Align blocks of text and keep them selected
-vmap < <gv
-vmap > >gv
-
-"syntax enable
-"set background=dark
-"let g:solarized_termtrans=256
-colorscheme OceanicNext
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 let g:ctrlp_working_path_mode= 'ra'
@@ -149,159 +243,10 @@ set foldlevel=99
 autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
-"__     _____ __  __            _   _   _                 
-"\ \   / /_ _|  \/  |  ___  ___| |_| |_(_)_ __   __ _ ___ 
-" \ \ / / | || |\/| | / __|/ _ \ __| __| | '_ \ / _` / __|
-"  \ V /  | || |  | | \__ \  __/ |_| |_| | | | | (_| \__ \
-"   \_/  |___|_|  |_| |___/\___|\__|\__|_|_| |_|\__, |___/
-"                                               |___/     
-" Prevent delay when esc. from insert mode (Should be os x only)
-set timeoutlen=1000 ttimeoutlen=0
-" Enable folding with the spacebar
-nnoremap <space> za
-
-set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
-syntax enable
-"set background=dark
-"let g:solarized_termtrans=256
-colorscheme molokai
-" Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
-" Enhance command-line completion
-set wildmenu
-" Allow cursor keys in insert mode
-set esckeys
-" Allow backspace in insert mode
-set backspace=indent,eol,start
-" Optimize for fast terminal connections
-set ttyfast
-" Add the g flag to search/replace by default
-set gdefault
-" Use UTF-8 without BOM
-set encoding=utf-8 nobomb
-" Change mapleader
-let mapleader=","
-" Don’t add empty newlines at the end of files
-set binary
-set noeol
-" Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-if exists("&undodir")
-	set undodir=~/.vim/undo
-endif
-" Don’t create backups when editing files in certain directories
-set backupskip=/tmp/*,/private/tmp/*
-" Respect modeline in files
-set modeline
-set modelines=4
-" Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
-set secure
-" Enable line numbers
-set number
-" Enable syntax highlighting
-syntax on
-" Highlight current line
-set cursorline
-" Make tabs as wide as two spaces
-set tabstop=4
-" Set indentation to expand to 4 spaces
-set shiftwidth=4
-" Expand tabs to spaces
-set expandtab
-
-" Show “invisible” characters
-"set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
-"set list
-" Highlight searches
-set hlsearch
-" Ignore case of searches
-set ignorecase
-" Highlight dynamically as pattern is typed
-set incsearch
-" Always show status line
-set laststatus=2
-" Enable mouse in all modes
-set mouse=a
-set ttymouse=xterm2
-" Disable error bells
-set noerrorbells
-" Don’t reset cursor to start of line when moving around.
-set nostartofline
-" Show the cursor position
-set ruler
-" Show the current mode
-set showmode
-" Show the filename in the window titlebar
-set title
-" Show the (partial) command as it’s being typed
-set showcmd
-" Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
-endif
-" Start scrolling three lines before the horizontal window border
-set scrolloff=3
-
-nnoremap <leader>t :CtrlPTag<CR>
-vnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gb :Gblame<CR>
-
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-" Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
-
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Tab navigation like Firefox.
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-inoremap <C-tab>   <Esc>:tabnext<CR>i
-inoremap <C-t>     <Esc>:tabnew<CR>
-
-" Run line under cursor as shell command and paste output to buffer
-noremap      Q !!$SHELL<CR>
-
-" Automatic commands
-if has("autocmd")
-	" Enable file type detection
-	filetype on
-	" Treat .json files as .js
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-	" Treat .md files as Markdown
-	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-endif
-
-" execute the current line of text as a shell command
-
-if has("gui_running")
-				set guifont="Source\ Code\ Pro\ for\ Powerline\ Medium:h16"
-				set linespace=1
-endif
-
 "Airline config
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "oceanicnext"
-
-"Emmet settings
-let g:user_emmet_settings = {'jade' : { 'extends' : 'html',},}
 
 "Multi cursors config
 "
@@ -309,6 +254,22 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+ " _____                 _   _                 
+" |  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
+" | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+" |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+" |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+                                             
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunction
+
 " Function to close all buffers but those open in a window
 "
 function! Wipeout()
@@ -343,3 +304,45 @@ function! Wipeout()
     execute 'tabnext' l:currentTab
   endtry
 endfunction
+
+"
+"  _  __            ____  _           _ _                 
+" | |/ /___ _   _  | __ )(_)_ __   __| (_)_ __   __ _ ___ 
+" | ' // _ \ | | | |  _ \| | '_ \ / _` | | '_ \ / _` / __|
+" | . \  __/ |_| | | |_) | | | | | (_| | | | | | (_| \__ \
+" |_|\_\___|\__, | |____/|_|_| |_|\__,_|_|_| |_|\__, |___/
+          " |___/                               |___/     
+
+" Copy to ubuntu clipboard
+vnoremap <C-c> "+y<CR>
+
+" Align blocks of text and keep them selected
+vmap < <gv
+vmap > >gv
+
+" Enable folding with the spacebar
+nnoremap <space> za
+noremap <leader>ss :call StripWhitespace()<CR>
+" Save a file as root (,W)
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Tab navigation like Firefox.
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
+
+" Run line under cursor as shell command and paste output to buffer
+noremap Q !!$SHELL<CR>
+
+nnoremap <leader>t :CtrlPTag<CR>
+vnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gb :Gblame<CR>
