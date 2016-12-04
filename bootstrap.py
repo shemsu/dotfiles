@@ -1,4 +1,5 @@
 import os
+import datetime
 import sys
 
 files_to_bootstrap = [
@@ -73,17 +74,17 @@ def link_files():
     for file in files_to_bootstrap:
         target= home + '/' + file
         source= cwd + '/' + file
-        if os.path.isfile(source):
+        if os.path.isfile(target):
             print 'File exists, creating backup @ ' , target
-            os.system('mv ' + target + ' ' + target + '.backup')
+            os.system('mv ' + target + ' ' + target + '.backup' + datetime.datetime.now().isoformat())
         print('ln -nfs ' + target + ' ' + source)
         os.system('ln -nfs ' + source + ' ' + target)
-        print 'Linked ' , target
+        print('Linked ', target)
     pass
 
 
 def main():
-    print "This will link the dotfiles from the current directory to your home folder\n If a file exists it will be renamed to <filename>.backup"
+    print("This will link the dotfiles from the current directory to your home folder\n If a file exists it will be renamed to <filename>.backup")
     if query_yes_no("Are you sure ?"):
         link_files()
     pass

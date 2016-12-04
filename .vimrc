@@ -1,8 +1,13 @@
 " Make Vim more useful
-set nocompatible              " be iMproved, required
-"filetype off                  " Testing - to see if it's redundant (Should
-"go down on next commit)
-
+set nocompatible              " be iMproved
+"
+"                       _ _              _             _
+"__   ___   _ _ __   __| | | ___   _ __ | |_   _  __ _(_)_ __
+"\ \ / / | | | '_ \ / _` | |/ _ \ | '_ \| | | | |/ _` | | '_ \
+" \ V /| |_| | | | | (_| | |  __/ | |_) | | |_| | (_| | | | | |
+"  \_/  \__,_|_| |_|\__,_|_|\___| | .__/|_|\__,_|\__, |_|_| |_|
+"                                 |_|            |___/
+"
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -15,7 +20,6 @@ Plugin 'tpope/vim-unimpaired'
 Plugin '907th/vim-auto-save'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'majutsushi/tagbar'
-Plugin 'lervag/vimtex', { 'for': 'tex' }
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'mattn/emmet-vim'
@@ -40,38 +44,40 @@ Plugin 'https://github.com/digitaltoad/vim-pug'
 "Plugin 'https://github.com/terryma/vim-multiple-cursors'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call vundle#end()
+
+"__     _____ __  __            _   _   _
+"\ \   / /_ _|  \/  |  ___  ___| |_| |_(_)_ __   __ _ ___
+" \ \ / / | || |\/| | / __|/ _ \ __| __| | '_ \ / _` / __|
+"  \ V /  | || |  | | \__ \  __/ |_| |_| | | | | (_| \__ \
+"   \_/  |___|_|  |_| |___/\___|\__|\__|_|_| |_|\__, |___/
+"                                               |___/
+
 filetype plugin indent on
 
-" Prevent delay when esc. from insert mode
+colorscheme OceanicNext
+
+" Prevent delay when esc. from insert mode (Should be os x only)
 set timeoutlen=1000 ttimeoutlen=0
 
 set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
 
-" Copy to ubuntu clipboard
-vnoremap <C-c> "+y<CR>
-
-" Align blocks of text and keep them selected
-vmap < <gv
-vmap > >gv
-
 "syntax enable
 "set background=dark
 "let g:solarized_termtrans=256
-colorscheme OceanicNext
+colorscheme molokai
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
-let g:ctrlp_working_path_mode= 'ra'
 
-let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
-map <silent> - :NERDTreeToggle<CR>
-" Nerd commenter
+"clang formatter
+map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+
+set grepprg=grep\ -nH\ $* " For latex-suite
+let g:tex_flavor='latex'
 "
-let g:NERDDefaultAlign = 'left'
-let g:NERDSpaceDelims = 1
-
 " Python breakpoints shortcuts
-au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
-au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 set iskeyword+=:
 "
 " make YCM compatible with UltiSnips (using supertab)
@@ -93,8 +99,8 @@ let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_always_populate_location_list = 1 "default 0
 let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
 let g:ycm_complete_in_strings = 1 "default 1
-let g:ycm_collect_identifiers_from_tags_files = 1 "default 0
-let g:ycm_path_to_python_interpreter = '' "default ''
+let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+let g:ycm_path_to_python_interpreter = 'python' "default ''
 
 let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
 let g:ycm_server_log_level = 'info' "default info
@@ -104,36 +110,16 @@ nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
 " Synatstic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 3
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_python_python_exec='python'
-" Disable line too long errors in syntastic
-let g:syntastic_python_flake8_args='--ignore=E501'
+let g:syntastic_python_python_exec='python3'
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-" If you prefer the Omni-Completion tip window to close when a selection is
-" made, these lines close it on movement in insert mode or when leaving
-" insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
-
-" Simply fold settings
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-
-" Enable folding with the spacebar
-nnoremap <space> za
-
 " Setup autosave plugin, off by default, enable with :AutoSaveToggle
-"let g:auto_save = 0
-"let g:auto_save_in_insert_mode = 1
-"let g:auto_save_events = ["InsertLeave", "TextChanged"]
+let g:auto_save = 0
+let g:auto_save_in_insert_mode = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
@@ -209,67 +195,113 @@ set title
 set showcmd
 " Use relative line numbers
 if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
+    set relativenumber
+    au BufReadPost * set relativenumber
 endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
-nnoremap <leader>t :CtrlPTag<CR>
-vnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gb :Gblame<CR>
-
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-" Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
-
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Tab navigation like Firefox.
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-inoremap <C-tab>   <Esc>:tabnext<CR>i
-inoremap <C-t>     <Esc>:tabnew<CR>
-
 " Automatic commands
 if has("autocmd")
-	" Enable file type detection
-	filetype on
-	" Treat .json files as .js
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-	" Treat .md files as Markdown
-	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
+    " Enable file type detection
+    filetype on
+    " Treat .json files as .js
+    autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+    " Treat .md files as Markdown
+    autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
 
 " execute the current line of text as a shell command
-noremap      Q !!$SHELL<CR>
 
 if has("gui_running")
-				set guifont="Source\ Code\ Pro\ for\ Powerline\ Medium:h16"
-				set linespace=1
+    set guifont="Source\ Code\ Pro\ for\ Powerline\ Medium:h16"
+    set linespace=1
 endif
+" ____  _             _         ____       _   _   _
+"|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___
+"| |_) | | | | |/ _` | | '_ \  \___ \ / _ \ __| __| | '_ \ / _` / __|
+"|  __/| | |_| | (_| | | | | |  ___) |  __/ |_| |_| | | | | (_| \__ \
+"|_|   |_|\__,_|\__, |_|_| |_| |____/ \___|\__|\__|_|_| |_|\__, |___/
+"               |___/                                      |___/
+
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
+let g:ctrlp_working_path_mode= 'ra'
+
+"clang formatter for c files
+map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
+map <silent> - :NERDTreeToggle<CR>
+" Nerd commenter
+"
+let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1
+
+" Python breakpoints shortcuts
+au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+set iskeyword+=:
+
+" YCM settings
+"
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_register_as_syntastic_checker = 1 "default 1
+let g:Show_diagnostics_ui = 1 "default 1
+"will put icons in Vim's gutter on lines that have a diagnostic set.
+"Turning this off will also turn off the YcmErrorLine and YcmWarningLine
+"highlighting
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_always_populate_location_list = 1 "default 0
+let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+let g:ycm_complete_in_strings = 1 "default 1
+let g:ycm_collect_identifiers_from_tags_files = 1 "default 0
+let g:ycm_path_to_python_interpreter = '' "default ''
+
+let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+let g:ycm_server_log_level = 'info' "default info
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
+"
+" Synatstic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 3
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_python_exec='python'
+" Disable line too long errors in syntastic
+let g:syntastic_python_flake8_args='--ignore=E501'
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" made, these lines close it on movement in insert mode or when leaving
+" insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Simply fold settings
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 "Airline config
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "oceanicnext"
-
-"Emmet settings
-let g:user_emmet_settings = {'jade' : { 'extends' : 'html',},}
 
 "Multi cursors config
 "
@@ -277,6 +309,22 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+ " _____                 _   _                 
+" |  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
+" | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+" |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+" |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+                                             
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunction
+
 " Function to close all buffers but those open in a window
 "
 function! Wipeout()
@@ -311,3 +359,45 @@ function! Wipeout()
     execute 'tabnext' l:currentTab
   endtry
 endfunction
+
+"
+"  _  __            ____  _           _ _                 
+" | |/ /___ _   _  | __ )(_)_ __   __| (_)_ __   __ _ ___ 
+" | ' // _ \ | | | |  _ \| | '_ \ / _` | | '_ \ / _` / __|
+" | . \  __/ |_| | | |_) | | | | | (_| | | | | | (_| \__ \
+" |_|\_\___|\__, | |____/|_|_| |_|\__,_|_|_| |_|\__, |___/
+          " |___/                               |___/     
+
+" Copy to ubuntu clipboard
+vnoremap <C-c> "+y<CR>
+
+" Align blocks of text and keep them selected
+vmap < <gv
+vmap > >gv
+
+" Enable folding with the spacebar
+nnoremap <space> za
+noremap <leader>ss :call StripWhitespace()<CR>
+" Save a file as root (,W)
+noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Tab navigation like Firefox.
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
+
+" Run line under cursor as shell command and paste output to buffer
+noremap Q !!$SHELL<CR>
+
+nnoremap <leader>t :CtrlPTag<CR>
+vnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gb :Gblame<CR>

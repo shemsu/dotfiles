@@ -45,7 +45,7 @@ alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 # List only hidden files
 alias lh="ls -ld .?* ${colorflag}"
 # Always use color output for `ls`
-alias ls="command ls ${colorflag}"
+#alias ls="command ls ${colorflag}" not neede for now, since it's in all aliases
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
