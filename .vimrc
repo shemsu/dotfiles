@@ -54,7 +54,15 @@ call vundle#end()
 
 filetype plugin indent on
 
-colorscheme OceanicNext
+" enable truecolor in vim
+
+set termguicolors
+
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 
 " Prevent delay when esc. from insert mode (Should be os x only)
 set timeoutlen=1000 ttimeoutlen=0
@@ -64,7 +72,6 @@ set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
 "syntax enable
 "set background=dark
 "let g:solarized_termtrans=256
-colorscheme molokai
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 
@@ -217,6 +224,7 @@ if has("gui_running")
     set guifont="Source\ Code\ Pro\ for\ Powerline\ Medium:h16"
     set linespace=1
 endif
+colorscheme OceanicNext
 " ____  _             _         ____       _   _   _
 "|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___
 "| |_) | | | | |/ _` | | '_ \  \___ \ / _ \ __| __| | '_ \ / _` / __|
