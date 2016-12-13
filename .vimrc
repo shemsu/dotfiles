@@ -1,5 +1,6 @@
 " Make Vim more useful
 set nocompatible              " be iMproved
+
 "
 "                       _ _              _             _
 "__   ___   _ _ __   __| | | ___   _ __ | |_   _  __ _(_)_ __
@@ -8,6 +9,7 @@ set nocompatible              " be iMproved
 "  \_/  \__,_|_| |_|\__,_|_|\___| | .__/|_|\__,_|\__, |_|_| |_|
 "                                 |_|            |___/
 "
+" {{{
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -34,6 +36,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'brauner/vimtux'
 "Themes
 Plugin 'mhartington/oceanic-next'
 Plugin 'git://github.com/altercation/vim-colors-solarized.git'
@@ -44,6 +47,7 @@ Plugin 'https://github.com/digitaltoad/vim-pug'
 "Plugin 'https://github.com/terryma/vim-multiple-cursors'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call vundle#end()
+" }}}
 
 "__     _____ __  __            _   _   _
 "\ \   / /_ _|  \/  |  ___  ___| |_| |_(_)_ __   __ _ ___
@@ -51,7 +55,7 @@ call vundle#end()
 "  \ V /  | || |  | | \__ \  __/ |_| |_| | | | | (_| \__ \
 "   \_/  |___|_|  |_| |___/\___|\__|\__|_|_| |_|\__, |___/
 "                                               |___/
-
+" {{{
 filetype plugin indent on
 
 " enable truecolor in vim
@@ -225,20 +229,24 @@ if has("gui_running")
     set linespace=1
 endif
 colorscheme OceanicNext
+"}}}
 " ____  _             _         ____       _   _   _
 "|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___
 "| |_) | | | | |/ _` | | '_ \  \___ \ / _ \ __| __| | '_ \ / _` / __|
 "|  __/| | |_| | (_| | | | | |  ___) |  __/ |_| |_| | | | | (_| \__ \
 "|_|   |_|\__,_|\__, |_|_| |_| |____/ \___|\__|\__|_|_| |_|\__, |___/
 "               |___/                                      |___/
-
+" {{{
+vmap <C-c>r <Plug>SendSelectionToTmux
+nmap <leader>r <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 let g:ctrlp_working_path_mode= 'ra'
 
 "clang formatter for c files
-map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
-imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+" map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+" imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
 map <silent> - :NERDTreeToggle<CR>
 " Nerd commenter
@@ -299,11 +307,11 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Enable folding
-set foldmethod=indent
+set foldmethod=marker
 set foldlevel=99
 
 " Simply fold settings
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=indent
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 "Airline config
@@ -318,12 +326,14 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
- " _____                 _   _                 
-" |  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
+" }}}
+"  _____                 _   _
+" |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
 " | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
 " |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 " |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
-                                             
+
+" {{{
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
     let save_cursor = getpos(".")
@@ -368,14 +378,18 @@ function! Wipeout()
   endtry
 endfunction
 
+" }}}
 "
-"  _  __            ____  _           _ _                 
-" | |/ /___ _   _  | __ )(_)_ __   __| (_)_ __   __ _ ___ 
+"  _  __            ____  _           _ _
+" | |/ /___ _   _  | __ )(_)_ __   __| (_)_ __   __ _ ___
 " | ' // _ \ | | | |  _ \| | '_ \ / _` | | '_ \ / _` / __|
 " | . \  __/ |_| | | |_) | | | | | (_| | | | | | (_| \__ \
 " |_|\_\___|\__, | |____/|_|_| |_|\__,_|_|_| |_|\__, |___/
-          " |___/                               |___/     
+          " |___/                               |___/
 
+" {{{
+"
+nnoremap ; :
 " Copy to ubuntu clipboard
 vnoremap <C-c> "+y<CR>
 
@@ -409,3 +423,4 @@ noremap Q !!$SHELL<CR>
 nnoremap <leader>t :CtrlPTag<CR>
 vnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
+" }}}

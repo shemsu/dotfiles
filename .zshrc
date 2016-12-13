@@ -53,7 +53,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python tmux docker)
+plugins=(git python tmux docker vi-mode history-substring-search zsh-syntax-highlighting)
 
 # User configuration
 
@@ -88,3 +88,13 @@ source ~/.aliases
 source ~/.exports
 source ~/.functions
 source ~/.extra
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /home/hagay/google-cloud-sdk/path.zsh.inc ]; then
+  source '/home/hagay/google-cloud-sdk/path.zsh.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /home/hagay/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/home/hagay/google-cloud-sdk/completion.zsh.inc'
+fi
