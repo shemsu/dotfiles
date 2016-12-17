@@ -1,11 +1,6 @@
-" ____                 _           _               _
-"| __ )  ___ _ __  ___| |__  _   _( )___    __   _(_)_ __ ___  _ __ ___
-"|  _ \ / _ \ '_ \/ __| '_ \| | | |// __|   \ \ / / | '_ ` _ \| '__/ __|
-"| |_) |  __/ | | \__ \ | | | |_| | \__ \    \ V /| | | | | | | | | (__
-"|____/ \___|_| |_|___/_| |_|\__,_| |___/   (_)_/ |_|_| |_| |_|_|  \___|
-"
 " Make Vim more useful
 set nocompatible              " be iMproved
+
 "
 "                       _ _              _             _
 "__   ___   _ _ __   __| | | ___   _ __ | |_   _  __ _(_)_ __
@@ -14,7 +9,7 @@ set nocompatible              " be iMproved
 "  \_/  \__,_|_| |_|\__,_|_|\___| | .__/|_|\__,_|\__, |_|_| |_|
 "                                 |_|            |___/
 "
-" set the runtime path to include Vundle and initialize
+" {{{
 call plug#begin('~/.vim/plugged')
 Plug 'VundleVim/Vundle.vim'
 Plug 'vim-airline/vim-airline'
@@ -58,8 +53,18 @@ call plug#end()
 "  \ V /  | || |  | | \__ \  __/ |_| |_| | | | | (_| \__ \
 "   \_/  |___|_|  |_| |___/\___|\__|\__|_|_| |_|\__, |___/
 "                                               |___/
-
+" {{{
 filetype plugin indent on
+
+" enable truecolor in vim
+
+set termguicolors
+
+if &term =~# '^screen'
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 
 colorscheme OceanicNext
 
@@ -165,13 +170,18 @@ if has("gui_running")
     set guifont="Source\ Code\ Pro\ for\ Powerline\ Medium:h16"
     set linespace=1
 endif
+colorscheme OceanicNext
+"}}}
 " ____  _             _         ____       _   _   _
 "|  _ \| |_   _  __ _(_)_ __   / ___|  ___| |_| |_(_)_ __   __ _ ___
 "| |_) | | | | |/ _` | | '_ \  \___ \ / _ \ __| __| | '_ \ / _` / __|
 "|  __/| | |_| | (_| | | | | |  ___) |  __/ |_| |_| | | | | (_| \__ \
 "|_|   |_|\__,_|\__, |_|_| |_| |____/ \___|\__|\__|_|_| |_|\__, |___/
 "               |___/                                      |___/
-
+" {{{
+vmap <C-c>r <Plug>SendSelectionToTmux
+nmap <leader>r <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 let g:ctrlp_working_path_mode= 'ra'
@@ -239,7 +249,7 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Enable folding
-set foldmethod=indent
+set foldmethod=marker
 set foldlevel=99
 
 " Simply fold settings
@@ -264,6 +274,7 @@ let g:multi_cursor_quit_key='<Esc>'
 " |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 " |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
                                              
+" {{{
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
     let save_cursor = getpos(".")
@@ -308,6 +319,7 @@ function! Wipeout()
   endtry
 endfunction
 
+" }}}
 "
 "  _  __            ____  _           _ _                 
 " | |/ /___ _   _  | __ )(_)_ __   __| (_)_ __   __ _ ___ 
@@ -316,6 +328,9 @@ endfunction
 " |_|\_\___|\__, | |____/|_|_| |_|\__,_|_|_| |_|\__, |___/
           " |___/                               |___/     
 
+" {{{
+"
+nnoremap ; :
 " Copy to ubuntu clipboard
 vnoremap <C-c> "+y<CR>
 
@@ -349,3 +364,4 @@ noremap Q !!$SHELL<CR>
 nnoremap <leader>t :CtrlPTag<CR>
 vnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
+" }}}
