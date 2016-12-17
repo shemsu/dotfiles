@@ -9,7 +9,9 @@ export CLICOLOR=1
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="taylor"
+POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
