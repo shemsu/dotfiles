@@ -11,6 +11,9 @@ export CLICOLOR=1
 # time that oh-my-zsh is loaded.
 POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs_joined vi_mode)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
