@@ -1,4 +1,4 @@
-#Benshu's dotfiles
+#Shemsu's dotfiles
 
 This is a forked repository of Mathias's dotfiles, with personal tweaks.
 
@@ -11,7 +11,7 @@ This is a forked repository of Mathias's dotfiles, with personal tweaks.
 You can clone the repository wherever you want. (I like to keep it in `~/Projects/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script will pull in the latest version and copy the files to your home folder.
 
 ```bash
-git clone https://github.com/benshu/dotfiles.git && cd dotfiles 
+git clone https://github.com/shemsu/dotfiles.git && cd dotfiles 
 ```
 
 To update using sym links from the home folder to the dotfiles folder, first edit bootsrap.py list of files to sync and then use:
